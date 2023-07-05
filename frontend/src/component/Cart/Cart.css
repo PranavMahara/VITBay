@@ -1,0 +1,112 @@
+.cartPage {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.cartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.cartHeader p {
+}
+
+.cartContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.cartInput {
+  display: flex;
+  align-items: center;
+}
+
+.cartInput button {
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #ddd;
+  border: none;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.cartInput input {
+  width: 50px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+}
+
+.cartSubtotal {
+  font-weight: bold;
+}
+
+.cartGrossProfit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.cartGrossProfitBox {
+  border: 2px solid #ddd;
+  font-weight: bold;
+  display: flex;
+  padding: 10px;
+}
+
+.cartGrossProfitBox p:first-child {
+  margin-right: 10px;
+}
+
+.checkOutBtn button {
+  padding: 10px 20px;
+  background-color: #0077ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.emptyCart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.emptyCart h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.emptyCart a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #008cba;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.emptyCart a:hover {
+  background-color: #006b84;
+}

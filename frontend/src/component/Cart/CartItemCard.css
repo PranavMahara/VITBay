@@ -1,0 +1,40 @@
+.CartItemCard {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.CartItemCard img {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.CartItemCard div {
+  display: flex;
+  flex-direction: column;
+}
+
+.CartItemCard a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+
+.CartItemCard span {
+  font-size: 1.25rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.CartItemCard p {
+  font-size: 1.25rem;
+  color: #f00;
+  cursor: pointer;
+}

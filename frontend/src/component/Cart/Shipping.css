@@ -1,0 +1,91 @@
+.shippingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  margin-top: 15vh;
+  z-index: -999;
+}
+
+.shippingBox {
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.shippingHeading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.shippingForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.shippingForm div {
+  margin-bottom: 20px;
+}
+
+.shippingForm input[type="text"],
+.shippingForm input[type="number"],
+.shippingForm select {
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 12px;
+  width: 100%;
+}
+
+.shippingForm select {
+  cursor: pointer;
+}
+
+.shippingForm input[type="submit"] {
+  background-color: #2ecc71;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.shippingForm input[type="submit"]:hover {
+  background-color: #27ae60;
+}
+
+@media only screen and (max-width: 800px) {
+  .shippingContainer {
+    margin: 15vh 5vh 100px 5vh;
+  }
+
+  .shippingBox {
+    padding: 20px;
+  }
+
+  .shippingHeading {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .shippingForm input[type="text"],
+  .shippingForm input[type="number"],
+  .shippingForm select {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .shippingForm input[type="submit"] {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

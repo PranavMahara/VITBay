@@ -1,0 +1,158 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 0 18vw;
+  min-height: 50vh;
+}
+
+.productCard {
+  width: 14vmax;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: rgb(48, 48, 48);
+  margin: 2vmax;
+  transition: all 0.5s;
+  padding-bottom: 0.5vmax;
+}
+
+.productCard > img {
+  width: 15vmax;
+}
+
+.productCard > div {
+  margin: 0.5vmax;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.productCard > p {
+  font-family: "Roboto";
+  font-size: 1.2vmax;
+  margin: 1vmax 0.5vmax;
+  margin-bottom: 0;
+}
+
+.productCard > span {
+  margin: 0.5vmax;
+  color: tomato;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 1vmax;
+}
+
+.productCard:hover {
+  box-shadow: 0 0 5px rgba(15, 15, 15, 0.26);
+  transform: translateY(-1vmax);
+}
+
+.paginationBox {
+  display: flex;
+  justify-content: center;
+  margin: 6vmax;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.page-item {
+  background-color: rgb(255, 255, 255);
+  list-style: none;
+  border: 1px solid rgba(0, 0, 0, 0.178);
+  padding: 1vmax 1.5vmax;
+  transition: all 0.3s;
+  cursor: pointer;
+  margin: 3px;
+}
+.page-item:first-child {
+  border-radius: 5px 0 0 5px;
+}
+
+.page-item:last-child {
+  border-radius: 0 5px 5px 0;
+}
+.page-link {
+  text-decoration: none;
+  font: 300 0.7vmax "Roboto";
+  color: rgb(80, 80, 80);
+  transition: all 0.3s;
+}
+
+.page-item:hover {
+  background-color: rgb(230, 230, 230);
+}
+
+.page-item:hover .page-link {
+  color: rgb(0, 0, 0);
+}
+
+.pageItemActive {
+  background-color: rgb(46, 45, 44);
+}
+
+.pageLinkActive {
+  color: white;
+}
+
+.filterBox {
+  width: 18vw;
+  top: 10vmax;
+  left: 1vmax;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  z-index: 999;
+  position: fixed;
+}
+
+.categoryBox {
+  padding: 0;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.category-link {
+  list-style: none;
+  color: rgba(0, 0, 0, 0.61);
+  font-size: 0.8rem;
+  margin: 0.4rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 0.2rem;
+}
+.category-link:hover {
+  color: tomato;
+  border-bottom: 1px solid tomato;
+}
+
+.filterBox > fieldset {
+  border: none;
+  margin-top: 2rem;
+}
+
+.filterBox > fieldset > div {
+  margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 20px 10vw 10px 10vw;
+  }
+  .filterBox {
+    width: 20vmax;
+    position: static;
+    margin: auto;
+  }
+
+  .page-link {
+    font: 300 1.7vmax "Roboto";
+  }
+  .category-link {
+    font: 400 1.8vmax "Roboto";
+  }
+}

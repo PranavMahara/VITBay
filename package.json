@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.2",
+    "@stripe/react-stripe-js": "^2.1.0",
+    "@stripe/stripe-js": "^1.52.1",
+    "cloudinary": "^1.36.2",
+    "country-state-city": "^3.1.4",
+    "express-fileupload": "^1.4.0",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.1",
+    "stripe": "^12.5.0"
+  }
+}

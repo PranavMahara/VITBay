@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif&display=swap");
+
+.container-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  border: 2px solid black;
+  margin: 5% 15% 0 15%;
+  box-shadow: 10px 10px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  font-family: "PT Serif", serif;
+  font-size: 15px;
+  align-items: center;
+}
+
+.profile h1 {
+  font-size: 30px;
+}
+
+.profile img {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.buttonRedirect {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.buttonRedirect a {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+  transition: background-color 0.3s;
+}
+
+.buttonRedirect a:hover {
+  background-color: #3e8e41;
+}
+
+@media screen and (max-width: 800px) {
+  .profile {
+    flex-direction: column;
+  }
+
+  .profile-info {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

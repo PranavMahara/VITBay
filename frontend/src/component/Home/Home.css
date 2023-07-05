@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Alkatra:wght@500&display=swap");
+.banner {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.banner h2 {
+  font-size: 40px;
+  font-family: "Alkatra", cursive;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 50px 0 50px;
+}
+
+.productCard {
+  width: 14vmax;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: rgb(48, 48, 48);
+  margin: 2vmax;
+  transition: all 0.5s;
+  padding-bottom: 0.5vmax;
+}
+
+.productCard > img {
+  width: 12vmax;
+  height: 12vmax;
+}
+
+.productCard > div {
+  margin: 0.5vmax;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.productCard > p {
+  font-family: "Roboto";
+  font-size: 1.2vmax;
+  margin: 1vmax 0.5vmax;
+  margin-bottom: 0;
+}
+
+.productCard > span {
+  margin: 0.5vmax;
+  color: tomato;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 1vmax;
+}
+
+.productCard:hover {
+  box-shadow: 0 0 5px rgba(15, 15, 15, 0.26);
+  transform: translateY(-1vmax);
+}
