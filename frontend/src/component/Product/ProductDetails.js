@@ -76,7 +76,7 @@ export default function ProductDetails() {
                             <div className="product">
                                 <div className="product-details">
                                     <div className="product-name">{product.name}</div>
-                                    <div className="product-price">₹{product.price}</div>
+                                    <div className="product-price">₹{Number(product.price).toLocaleString("en-IN")}</div>
                                 </div>
 
                                 <div className="detailsBlock-stars">

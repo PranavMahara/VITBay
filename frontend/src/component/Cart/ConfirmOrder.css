@@ -98,7 +98,7 @@
   font-size: 1.5rem;
 }
 
-button {
+.confirmOrderPage button {
   margin-top: 1rem;
   padding: 1rem 2rem;
   background-color: #008000;
@@ -120,7 +120,7 @@ button {
     margin-top: 1rem;
   }
 
-  button {
+  .confirmOrderPage button {
     margin-top: 2rem;
   }
 }
