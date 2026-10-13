@@ -1,10 +1,10 @@
 import React, { useState, Fragment } from 'react'
-import { Backdrop } from '@material-ui/core'
+import { Backdrop } from '@mui/material'
 import { useAlert } from 'react-alert'
 import { logout } from '../../../actions/userAction'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
-import { SpeedDial, SpeedDialAction } from '@material-ui/lab'
+import { SpeedDial, SpeedDialAction } from '@mui/material'
 import { AdminPanelSettingsOutlined, Logout, ShoppingCartOutlined } from '@mui/icons-material'
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';

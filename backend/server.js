@@ -1,18 +1,19 @@
-const app = require("./app")
+const path = require("path")
 const dotenv = require("dotenv")
+
+// CONFIG (local development only; in production use real environment variables)
+dotenv.config({ path: path.join(__dirname, "config", "config.env") })
+
+const app = require("./app")
 const connectDatabase = require("./config/database")
 const cloudinary = require("cloudinary")
 
-// Handling Uncaught Exception  // like console.log(youtube) // youtube is not defined // Error will be shown if and only if console.log thign is mentioned below the middlware
+// Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
     console.log(`Error: ${err.message}`)
     console.log("Shutting down the server due to uncaught exception")
-    process.exit(1);
+    process.exit(1)
 })
-
-// CONFIG
-dotenv.config({ path: "../backend/config/config.env" })
-connectDatabase()
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
@@ -20,9 +21,10 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
+connectDatabase()
 
-const server = app.listen(process.env.PORT, () => {
-    console.log(`Server is listening on http://localhost:${process.env.PORT}`)
+const server = app.listen(process.env.PORT || 4000, () => {
+    console.log(`Server is listening on http://localhost:${process.env.PORT || 4000}`)
 })
 
 // Unhandled Promise Rejection // like usually when DB is not connected properly

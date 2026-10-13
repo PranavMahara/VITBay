@@ -6,7 +6,7 @@ import Loader from '../layout/Loader/Loader'
 import ProductCard from '../Home/ProductCard'
 import { useParams } from 'react-router-dom'
 import Pagination from "react-js-pagination"
-import { Slider, Typography } from '@material-ui/core'
+import { Slider, Typography } from '@mui/material'
 import { useAlert } from "react-alert"
 
 const categories = [

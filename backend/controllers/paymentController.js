@@ -10,7 +10,7 @@ const processPayment = catchAsyncError(async (req, res, next) => {
         }
     })
 
-    res.status(200).json({ success: true, client_secret: myPayment.client_secret, intent_id: intent.id })
+    res.status(200).json({ success: true, client_secret: myPayment.client_secret, intent_id: myPayment.id })
 })
 
 const sendStripeApiKey = catchAsyncError(async (req, res, next) => {

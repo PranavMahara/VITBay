@@ -67,7 +67,6 @@ const logout = catchAsyncError(async (req, res, next) => {
 
 // Forgot Password Module
 const forgotPassword = catchAsyncError(async (req, res, next) => {
-    console.log("Recieved - 1")
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
@@ -79,37 +78,30 @@ const forgotPassword = catchAsyncError(async (req, res, next) => {
 
     await user.save({ validateBeforeSave: false });
 
-    const resetPasswordUrl = `${req.protocol}://${req.get(
-        "host"
-    )}/api/v1/password/reset/${resetToken}`;
+    const baseUrl = process.env.FRONTEND_URL || `${req.protocol}://${req.get("host")}`;
+    const resetPasswordUrl = `${baseUrl}/password/reset/${resetToken}`;
 
-    const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
-    console.log(message)
-    // try {
-    //     await sendEmail({
-    //         email: user.email,
-    //         subject: `Ecommerce Password Recovery`,
-    //         message,
-    //     });
+    const message = `Your password reset link is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 
-    //     res.status(200).json({
-    //         success: true,
-    //         message: `Email sent to ${user.email} successfully`,
-    //     });
-    // } catch (error) {
-    //     console.log("Catch Caught")
-    //     user.resetPasswordToken = undefined;
-    //     user.resetPasswordExpire = undefined;
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: `VITBay Password Recovery`,
+            message,
+        });
 
-    //     await user.save({ validateBeforeSave: false });
+        return res.status(200).json({
+            success: true,
+            message: `Email sent to ${user.email} successfully`,
+        });
+    } catch (error) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
 
-    //     return next(new ErrorHandler(error.message, 500));
-    // }
+        await user.save({ validateBeforeSave: false });
 
-    return res.status(200).json({
-        success: true,
-        message: `Email sent to ${user.email} successfully`,
-    });
+        return next(new ErrorHandler(error.message, 500));
+    }
 })
 
 // Reset Password Module
