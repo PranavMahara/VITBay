@@ -2,6 +2,7 @@ const Product = require("../models/productModel")
 const ErrorHandler = require("../utils/errorHandler")
 const catchAsyncError = require("../middleware/catchAsyncError")
 const ApiFeatures = require("../utils/apiFeatures")
+const { isDemoMode, queryProducts, findProduct } = require("../demo/demoMode")
 
 // Create Product Controller
 const createProduct = catchAsyncError(async (req, res, next) => {
@@ -16,6 +17,10 @@ const createProduct = catchAsyncError(async (req, res, next) => {
 
 // Get All Products
 const getAllProducts = catchAsyncError(async (req, res, next) => {
+    if (isDemoMode()) {
+        return res.status(200).json({ success: true, ...queryProducts(req.query) })
+    }
+
     const resultPerPage = 10;
     const productsCount = await Product.countDocuments();
 
@@ -38,7 +43,7 @@ const getAllProducts = catchAsyncError(async (req, res, next) => {
 
 // Get Product Details
 const getProductDetails = catchAsyncError(async (req, res, next) => {
-    const product = await Product.findById(req.params.id);
+    const product = isDemoMode() ? findProduct(req.params.id) : await Product.findById(req.params.id);
 
     if (!product) {
         return next(new ErrorHandler("Product Not Found", 404))

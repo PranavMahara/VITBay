@@ -43,12 +43,15 @@ export default function ProductDetails() {
             alert.error(error)
             dispatch(clearErrors())
         }
+    }, [dispatch, error, alert])
+
+    useEffect(() => {
         dispatch(getProductDetails(id))
 
         return () => {
             dispatch(removeSelectedProduct());
         };
-    }, [dispatch, id, error, alert])
+    }, [dispatch, id])
 
     return (
         <Fragment>

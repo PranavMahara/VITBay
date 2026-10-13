@@ -22,7 +22,7 @@ export const getProduct = (keyword = "", currentPage = 1, price = [0, 25000], ca
     } catch (error) {
         dispatch({
             type: ALL_PRODUCT_FAIL,
-            payload: error.response.data.message
+            payload: error.response?.data?.message || error.message
         })
     }
 }
@@ -43,7 +43,7 @@ export const getProductDetails = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: PRODUCT_DETAILS_FAIL,
-            payload: error.response.data.message
+            payload: error.response?.data?.message || error.message
         })
     }
 }

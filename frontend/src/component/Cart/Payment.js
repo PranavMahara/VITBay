@@ -97,7 +97,7 @@ export default function Payment() {
             }
         } catch (error) {
             payBtn.current.disabled = false;
-            alert.error(error.response.data.message);
+            alert.error(error.response?.data?.message || error.message);
         }
     }
 

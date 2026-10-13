@@ -8,6 +8,7 @@ const rateLimit = require("express-rate-limit")
 
 const connectDatabase = require("./config/database")
 const errorMiddleware = require("./middleware/error")
+const { isDemoMode, demoGuard } = require("./demo/demoMode")
 
 // Running behind Vercel's proxy
 app.set("trust proxy", 1)
@@ -29,7 +30,9 @@ const authLimiter = rateLimit({
 app.use(["/api/v1/login", "/api/v1/register", "/api/v1/password"], authLimiter)
 
 // Make sure the DB is connected before any API handler runs
+// (with no database configured, only the built-in demo catalog is served)
 app.use("/api", async (req, res, next) => {
+    if (isDemoMode()) return demoGuard(req, res, next)
     try {
         await connectDatabase()
         next()

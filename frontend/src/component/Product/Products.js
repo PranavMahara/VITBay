@@ -46,9 +46,11 @@ export default function Products({ match }) {
             alert.error(error);
             dispatch(clearErrors());
         }
+    }, [dispatch, alert, error]);
 
+    useEffect(() => {
         dispatch(getProduct(keyword, currentPage, price, category, ratings));
-    }, [dispatch, keyword, currentPage, price, category, ratings, alert, error]);
+    }, [dispatch, keyword, currentPage, price, category, ratings]);
 
     return (
         <Fragment>

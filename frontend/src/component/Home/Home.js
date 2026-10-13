@@ -13,11 +13,14 @@ export default function Home() {
     const { loading, error, products } = useSelector((state) => state.products)
 
     useEffect(() => {
+        dispatch(getProduct())
+    }, [dispatch])
+
+    useEffect(() => {
         if (error) {
             alert.error(error)
             dispatch(clearErrors())
         }
-        dispatch(getProduct())
     }, [dispatch, error, alert])
     return (
         <Fragment>

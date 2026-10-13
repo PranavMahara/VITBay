@@ -21,7 +21,8 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-connectDatabase()
+if (process.env.connectionString) connectDatabase()
+else console.log("No connectionString set: running in demo mode (read-only sample catalog)")
 
 const server = app.listen(process.env.PORT || 4000, () => {
     console.log(`Server is listening on http://localhost:${process.env.PORT || 4000}`)
