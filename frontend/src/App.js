@@ -54,7 +54,7 @@ function App() {
   return (
 
     <BrowserRouter>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetails />} />
@@ -78,12 +78,12 @@ function App() {
             <Route exact path="/process/payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
           </Elements>
         )} */}
-        <Route exact path="/process/payment" element={<Elements stripe={loadStripe(stripeApiKey)}>
+        <Route exact path="/process/payment" element={<Elements stripe={stripeApiKey ? loadStripe(stripeApiKey) : null}>
           <ProtectedRoute><Payment /></ProtectedRoute>
         </Elements>} />
 
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 }

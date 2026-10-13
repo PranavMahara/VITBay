@@ -25,7 +25,7 @@ export default function Products({ match }) {
     const alert = useAlert()
 
     const [currentPage, setcurrentPage] = useState(1)
-    const [price, setPrice] = useState([0, 25000])
+    const [price, setPrice] = useState([0, 100000])
     const [category, setCategory] = useState("")
     const [ratings, setRatings] = useState(0)
 
@@ -75,7 +75,7 @@ export default function Products({ match }) {
                             valueLabelDisplay="auto"
                             aria-labelledby="range-slider"
                             min={0}
-                            max={25000}
+                            max={100000}
                         />
 
                         <Typography>Categories</Typography>
