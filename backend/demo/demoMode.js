@@ -6,7 +6,7 @@ const products = require("./products")
 const isDemoMode = () => !process.env.connectionString
 
 // Mirrors the search / filter / pagination behaviour of utils/apiFeatures.js
-const queryProducts = (query = {}, resultPerPage = 10) => {
+const queryProducts = (query = {}, resultPerPage = 12) => {
     const keyword = (query.keyword || "").toLowerCase()
     const gte = (v) => (v === undefined ? -Infinity : Number(v))
     const lte = (v) => (v === undefined ? Infinity : Number(v))
@@ -14,6 +14,7 @@ const queryProducts = (query = {}, resultPerPage = 10) => {
     const filtered = products.filter((p) =>
         p.name.toLowerCase().includes(keyword) &&
         (!query.category || p.category === query.category) &&
+        (!query.condition || p.condition === query.condition) &&
         p.price >= gte(query.price?.gte) && p.price <= lte(query.price?.lte) &&
         p.rating >= gte(query.rating?.gte) && p.rating <= lte(query.rating?.lte)
     )
@@ -38,7 +39,7 @@ const demoGuard = (req, res, next) => {
     if (req.method === "GET" && (p === "/v1/me" || p === "/v1/stripeapikey")) {
         return next(new ErrorHandler("Please Login to access this resource", 401))
     }
-    next(new ErrorHandler("Demo mode: accounts, orders and payments are disabled on this deployment", 503))
+    next(new ErrorHandler("Demo mode: accounts, listings, orders and payments are switched off on this public deployment", 503))
 }
 
 module.exports = { isDemoMode, queryProducts, findProduct, demoGuard }

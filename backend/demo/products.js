@@ -1,356 +1,424 @@
-// Built-in sample catalog used when no database is configured (portfolio demo mode).
-// Photos are served from Unsplash (free licence, hotlinking allowed): https://unsplash.com/license
+// Sample campus marketplace listings, used when no database is configured (portfolio demo mode).
+// Names, sellers and prices are made up. Photos come from Unsplash and Wikimedia Commons
+// (free licences): https://unsplash.com/license
 
-const owner = "000000000000000000000000"
-
-const reviewers = [
+const sellers = [
     [
-        "Aarav S.",
-        "Great quality for the price. Arrived quickly and exactly as shown."
+        "Aarav Sharma",
+        "Block C",
+        "3rd year"
     ],
     [
-        "Diya M.",
-        "Really happy with this. Looks even better in person."
+        "Diya Menon",
+        "Ladies Hostel 2",
+        "2nd year"
     ],
     [
-        "Kabir R.",
-        "Solid build and very comfortable. Would buy again."
+        "Kabir Rao",
+        "Block A",
+        "4th year"
     ],
     [
-        "Meera K.",
-        "Good value. Packaging was neat and delivery was on time."
+        "Meera Kulkarni",
+        "Ladies Hostel 1",
+        "3rd year"
     ],
     [
-        "Rohan P.",
-        "Exactly what I was looking for. Highly recommended."
+        "Rohan Patel",
+        "Block D",
+        "2nd year"
     ],
     [
-        "Sneha T.",
-        "Nice product, works as described."
+        "Sneha Iyer",
+        "Ladies Hostel 3",
+        "4th year"
+    ],
+    [
+        "Ishaan Gupta",
+        "Block B",
+        "1st year"
+    ],
+    [
+        "Ananya Das",
+        "Ladies Hostel 2",
+        "3rd year"
     ]
 ]
 
-const items = [
+const buyers = [
+    [
+        "Ritvik S.",
+        "Met on time and the item was exactly as described."
+    ],
+    [
+        "Pooja N.",
+        "Smooth deal. Seller was friendly and flexible on the meeting spot."
+    ],
+    [
+        "Arjun K.",
+        "Good condition, fair price. Would buy from this seller again."
+    ],
+    [
+        "Nisha R.",
+        "Quick replies and honest about the small flaws."
+    ],
+    [
+        "Vikram T.",
+        "Item matched the photos. Pickup was easy."
+    ],
+    [
+        "Tanvi B.",
+        "Great seller, very trustworthy."
+    ]
+]
+
+const listings = [
     {
-        "name": "Aero Air 13 Laptop",
+        "name": "MacBook Air 13-inch (2020)",
         "category": "Laptop",
-        "price": 54999,
+        "price": 52000,
+        "originalPrice": 92000,
+        "condition": "Good",
+        "daysAgo": 1,
+        "seller": 0,
         "rating": 4.5,
-        "Stock": 12,
-        "photo": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9",
-        "description": "Ultra-thin 13-inch laptop with a 12th-gen processor, 16 GB RAM and a 512 GB SSD. A full day of battery life in a body that slips into any bag.",
-        "reviews": [
-            0,
-            2,
-            4
-        ]
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Used for two years, mostly for coding and assignments. Battery health around 87%, charger and sleeve included. Selling because I'm upgrading before placements."
     },
     {
-        "name": "Aero Pro 14 Laptop",
+        "name": "iPhone 12 with AirPods",
+        "category": "SmartPhones",
+        "price": 31000,
+        "originalPrice": 79900,
+        "condition": "Good",
+        "daysAgo": 1,
+        "seller": 3,
+        "rating": 5,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "128 GB, no cracks, always used with a case and screen guard. Comes with the original box and a pair of AirPods."
+    },
+    {
+        "name": "Canon DSLR kit with 50mm lens",
+        "category": "Camera",
+        "price": 24000,
+        "originalPrice": 62999,
+        "condition": "Good",
+        "daysAgo": 2,
+        "seller": 2,
+        "rating": 4.5,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Used for the photography club. Body, kit lens, 50mm prime and two spare lenses, plus a bag. Shutter count is low."
+    },
+    {
+        "name": "Nike Free Run, UK 9",
+        "category": "Footwear",
+        "price": 2800,
+        "originalPrice": 8995,
+        "condition": "Good",
+        "daysAgo": 2,
+        "seller": 4,
+        "rating": 4,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Worn for one semester of morning runs. Plenty of tread left. Washed and ready to go."
+    },
+    {
+        "name": "Navy blazer, size 40",
+        "category": "Attire",
+        "price": 2500,
+        "originalPrice": 7999,
+        "condition": "Like new",
+        "daysAgo": 3,
+        "seller": 6,
+        "rating": 4.5,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1667283831517-5b747b3c17c8?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Worn exactly once, for placement day. Dry-cleaned and kept on a hanger since."
+    },
+    {
+        "name": "MacBook Pro 14-inch",
         "category": "Laptop",
-        "price": 89999,
+        "price": 98000,
+        "originalPrice": 169900,
+        "condition": "Like new",
+        "daysAgo": 3,
+        "seller": 5,
         "rating": 5,
-        "Stock": 8,
-        "photo": "https://images.unsplash.com/photo-1629131726692-1accd0c53ce0",
-        "description": "14-inch creator laptop with a 120 Hz display, 32 GB RAM and a 1 TB SSD. Backlit keyboard, large trackpad and studio-quality speakers.",
-        "reviews": [
-            1,
-            3,
-            5
-        ]
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Bought last year for video editing. Barely used since I moved to a desktop. Includes original charger and box."
     },
     {
-        "name": "Studio Book 15 + Ergo Stand",
+        "name": "Philips electric kettle, 1.7 L",
+        "category": "Hostel",
+        "price": 450,
+        "originalPrice": 1295,
+        "condition": "Good",
+        "daysAgo": 4,
+        "seller": 1,
+        "rating": 4.5,
+        "Stock": 1,
+        "photo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Electric_kettle_phillips_white.JPG/960px-Electric_kettle_phillips_white.JPG",
+        "description": "Perfect for hostel rooms: noodles, tea, coffee. Auto shut-off works fine."
+    },
+    {
+        "name": "Textbook bundle: design and CS (8 books)",
+        "category": "Books",
+        "price": 1800,
+        "originalPrice": 6500,
+        "condition": "Good",
+        "daysAgo": 4,
+        "seller": 7,
+        "rating": 4.5,
+        "Stock": 1,
+        "photo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Books%2C_pencils%2C_laptop%2C_and_iphone_on_a_desk_%28Unsplash%29.jpg/960px-Books%2C_pencils%2C_laptop%2C_and_iphone_on_a_desk_%28Unsplash%29.jpg",
+        "description": "Eight books from first and second year, lightly highlighted. Selling as a set only. Comes with a pack of drawing pencils."
+    },
+    {
+        "name": "Black iPhone, 64 GB",
+        "category": "SmartPhones",
+        "price": 18500,
+        "originalPrice": 43900,
+        "condition": "Good",
+        "daysAgo": 5,
+        "seller": 0,
+        "rating": 4,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1560617544-b4f287789e24?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Battery replaced six months ago. Small scratch on the frame, screen is perfect. Unlocked, charger included."
+    },
+    {
+        "name": "GoPro action camera with tripod",
+        "category": "Camera",
+        "price": 8500,
+        "originalPrice": 17999,
+        "condition": "Good",
+        "daysAgo": 5,
+        "seller": 4,
+        "rating": 4,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1571190144364-1da84d9ca448?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Took it on two treks and one Goa trip. Includes waterproof case, tripod grip and two batteries."
+    },
+    {
+        "name": "White hoodie, size L",
+        "category": "Attire",
+        "price": 700,
+        "originalPrice": 1999,
+        "condition": "Like new",
+        "daysAgo": 6,
+        "seller": 1,
+        "rating": 5,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Heavy fleece, very warm for the winter semester. Worn a handful of times."
+    },
+    {
+        "name": "Slim-fit jeans, 32 waist",
+        "category": "Bottom",
+        "price": 600,
+        "originalPrice": 1799,
+        "condition": "Good",
+        "daysAgo": 6,
+        "seller": 6,
+        "rating": 4,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1714143136372-ddaf8b606da7?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Mid-blue wash, stretchy and comfortable. No rips or fading."
+    },
+    {
+        "name": "Formal shirts, pack of 3 (M)",
+        "category": "Tops",
+        "price": 900,
+        "originalPrice": 3299,
+        "condition": "Like new",
+        "daysAgo": 7,
+        "seller": 2,
+        "rating": 4.5,
+        "Stock": 3,
+        "photo": "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Three shirts I only wore to interviews. Cotton blend, no stains. Selling together or separately."
+    },
+    {
+        "name": "Brown leather boots, UK 8",
+        "category": "Footwear",
+        "price": 2200,
+        "originalPrice": 5499,
+        "condition": "Good",
+        "daysAgo": 7,
+        "seller": 3,
+        "rating": 4.5,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Genuine leather, resoled once. Great for the rainy season on campus."
+    },
+    {
+        "name": "Full-frame DSLR with telephoto lens",
+        "category": "Camera",
+        "price": 38000,
+        "originalPrice": 84999,
+        "condition": "Good",
+        "daysAgo": 8,
+        "seller": 5,
+        "rating": 5,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Full-frame body with a fast telephoto lens. Perfect for sports day and fests. Handled carefully, with a hard case."
+    },
+    {
+        "name": "Oatmeal hoodie, size M",
+        "category": "Attire",
+        "price": 800,
+        "originalPrice": 2299,
+        "condition": "Good",
+        "daysAgo": 8,
+        "seller": 7,
+        "rating": 4.5,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1564557287817-3785e38ec1f5?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Soft, relaxed fit. Washed twice a month at most."
+    },
+    {
+        "name": "Laptop with aluminium stand and keyboard",
         "category": "Laptop",
-        "price": 47999,
+        "price": 45000,
+        "originalPrice": 70000,
+        "condition": "Good",
+        "daysAgo": 9,
+        "seller": 4,
         "rating": 4,
-        "Stock": 15,
-        "photo": "https://images.unsplash.com/photo-1658624234283-13d7d2ab76ed",
-        "description": "15-inch productivity laptop bundled with an aluminium rotating stand and wireless keyboard for a clean, comfortable desk setup.",
-        "reviews": [
-            2,
-            4,
-            0
-        ]
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1658624234283-13d7d2ab76ed?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Complete desk setup in one go: laptop, rotating stand and wireless keyboard. Great for studying in the hostel."
     },
     {
-        "name": "Velocity Knit Running Shoes",
+        "name": "White sneakers, UK 8",
         "category": "Footwear",
-        "price": 8999,
+        "price": 1200,
+        "originalPrice": 3499,
+        "condition": "Like new",
+        "daysAgo": 9,
+        "seller": 6,
         "rating": 4.5,
-        "Stock": 40,
-        "photo": "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-        "description": "Seamless knit upper with a responsive foam midsole. Lightweight, breathable and built for long runs.",
-        "reviews": [
-            3,
-            5,
-            1
-        ]
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1625860191460-10a66c7384fb?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Clean white sneakers, worn only a few times. Original laces and box."
     },
     {
-        "name": "Urban Leather Boots",
-        "category": "Footwear",
-        "price": 6499,
-        "rating": 4,
-        "Stock": 15,
-        "photo": "https://images.unsplash.com/photo-1608256246200-53e635b5b65f",
-        "description": "Full-grain leather lace-up boots with a durable rubber sole. Hand-finished for the city and the occasional rainy day.",
-        "reviews": [
-            4,
-            0,
-            2
-        ]
-    },
-    {
-        "name": "Cloud White Sneakers",
-        "category": "Footwear",
-        "price": 3999,
-        "rating": 4.5,
-        "Stock": 55,
-        "photo": "https://images.unsplash.com/photo-1625860191460-10a66c7384fb",
-        "description": "Minimal low-top sneakers in clean white. Cushioned insole and a flexible sole make them an easy everyday pair.",
-        "reviews": [
-            5,
-            1,
-            3
-        ]
-    },
-    {
-        "name": "Classic Slim Jeans",
-        "category": "Bottom",
-        "price": 1799,
-        "rating": 4.5,
-        "Stock": 60,
-        "photo": "https://images.unsplash.com/photo-1714143136372-ddaf8b606da7",
-        "description": "Slim-fit stretch denim in a timeless mid-blue wash with a comfortable mid rise.",
-        "reviews": [
-            0,
-            2,
-            4
-        ]
-    },
-    {
-        "name": "Distressed Denim Shorts",
-        "category": "Bottom",
-        "price": 1299,
-        "rating": 4,
-        "Stock": 45,
-        "photo": "https://images.unsplash.com/photo-1591195853828-11db59a44f6b",
-        "description": "High-waist light-wash shorts with a rolled hem and light distressing. Perfect for summer.",
-        "reviews": [
-            1,
-            3,
-            5
-        ]
-    },
-    {
-        "name": "Black Slim Jeans",
-        "category": "Bottom",
-        "price": 1999,
-        "rating": 4,
-        "Stock": 38,
-        "photo": "https://images.unsplash.com/photo-1718252540558-7b383b52642e",
-        "description": "Dark, versatile black denim with a slim taper. Soft, stretchy and easy to dress up or down.",
-        "reviews": [
-            2,
-            4,
-            0
-        ]
-    },
-    {
-        "name": "Everyday Shirts, Pack of 3",
-        "category": "Tops",
-        "price": 3299,
-        "rating": 4.5,
-        "Stock": 70,
-        "photo": "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf",
-        "description": "Three cotton-blend shirts in neutral shades. Breathable, crease-resistant and ready for class or office.",
-        "reviews": [
-            3,
-            5,
-            1
-        ]
-    },
-    {
-        "name": "Printed Formal Shirt",
-        "category": "Tops",
-        "price": 1499,
-        "rating": 4,
-        "Stock": 50,
-        "photo": "https://images.unsplash.com/photo-1602810316693-3667c854239a",
-        "description": "Fine micro-print formal shirt with a classic collar and a tailored fit.",
-        "reviews": [
-            4,
-            0,
-            2
-        ]
-    },
-    {
-        "name": "Powder Blue Casual Shirt",
-        "category": "Tops",
-        "price": 1299,
-        "rating": 3.5,
-        "Stock": 65,
-        "photo": "https://images.unsplash.com/photo-1623658580851-3b25bf83b4ea",
-        "description": "Soft powder-blue shirt in lightweight cotton. Wear it tucked in or loose.",
-        "reviews": [
-            5,
-            1,
-            3
-        ]
-    },
-    {
-        "name": "Campus White Hoodie",
-        "category": "Attire",
-        "price": 1999,
-        "rating": 5,
-        "Stock": 30,
-        "photo": "https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77",
-        "description": "Heavyweight fleece hoodie with a roomy kangaroo pocket. Soft inside, structured outside.",
-        "reviews": [
-            0,
-            2,
-            4
-        ]
-    },
-    {
-        "name": "Urban Oatmeal Hoodie",
-        "category": "Attire",
-        "price": 2299,
-        "rating": 4.5,
-        "Stock": 26,
-        "photo": "https://images.unsplash.com/photo-1564557287817-3785e38ec1f5",
-        "description": "Relaxed-fit oatmeal hoodie with a double-layer hood. A street-style staple.",
-        "reviews": [
-            1,
-            3,
-            5
-        ]
-    },
-    {
-        "name": "Tailored Navy Blazer",
-        "category": "Attire",
-        "price": 7999,
-        "rating": 4.5,
-        "Stock": 12,
-        "photo": "https://images.unsplash.com/photo-1667283831517-5b747b3c17c8",
-        "description": "Slim-cut navy blazer with satin-trimmed lapels, fully lined. Made for interviews, receptions and everything formal.",
-        "reviews": [
-            2,
-            4,
-            0
-        ]
-    },
-    {
-        "name": "Alpha DSLR Starter Kit",
-        "category": "Camera",
-        "price": 62999,
-        "rating": 4.5,
-        "Stock": 6,
-        "photo": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32",
-        "description": "24 MP DSLR with a kit lens, 50 mm prime and a spare lens set. Everything you need to learn photography.",
-        "reviews": [
-            3,
-            5,
-            1
-        ]
-    },
-    {
-        "name": "ActionCam Pro",
-        "category": "Camera",
-        "price": 17999,
-        "rating": 4,
-        "Stock": 14,
-        "photo": "https://images.unsplash.com/photo-1571190144364-1da84d9ca448",
-        "description": "Waterproof action camera with 5K video, HyperSmooth stabilisation and a tripod mount.",
-        "reviews": [
-            4,
-            0,
-            2
-        ]
-    },
-    {
-        "name": "Pro DSLR + Telephoto Lens",
-        "category": "Camera",
-        "price": 84999,
-        "rating": 5,
-        "Stock": 4,
-        "photo": "https://images.unsplash.com/photo-1502982720700-bfff97f2ecac",
-        "description": "Full-frame DSLR paired with a fast telephoto lens for sports, wildlife and portraits.",
-        "reviews": [
-            5,
-            1,
-            3
-        ]
-    },
-    {
-        "name": "Nova X Smartphone",
+        "name": "Android phone, 6.6-inch AMOLED",
         "category": "SmartPhones",
-        "price": 24999,
+        "price": 9500,
+        "originalPrice": 24999,
+        "condition": "Good",
+        "daysAgo": 10,
+        "seller": 2,
         "rating": 4,
-        "Stock": 25,
-        "photo": "https://images.unsplash.com/photo-1585060544812-6b45742d762f",
-        "description": "6.6-inch AMOLED display, 5000 mAh battery and a 64 MP camera with night mode.",
-        "reviews": [
-            0,
-            2,
-            4
-        ]
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Great display, long battery life. Selling because I got a new phone. Charger and case included."
     },
     {
-        "name": "Pixelite 8",
-        "category": "SmartPhones",
-        "price": 45999,
+        "name": "Steel electric kettle",
+        "category": "Hostel",
+        "price": 400,
+        "originalPrice": 1199,
+        "condition": "Fair",
+        "daysAgo": 10,
+        "seller": 0,
+        "rating": 4,
+        "Stock": 1,
+        "photo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Electric_water_boiler_2014.JPG/960px-Electric_water_boiler_2014.JPG",
+        "description": "Works perfectly, a few cosmetic marks on the body. Good for a first-year room."
+    },
+    {
+        "name": "Black slim jeans, 30 waist",
+        "category": "Bottom",
+        "price": 550,
+        "originalPrice": 1999,
+        "condition": "Good",
+        "daysAgo": 11,
+        "seller": 5,
         "rating": 4.5,
-        "Stock": 18,
-        "photo": "https://images.unsplash.com/photo-1560617544-b4f287789e24",
-        "description": "Flagship-grade chipset, 120 Hz OLED and an all-day battery. Fast, smooth and secure.",
-        "reviews": [
-            1,
-            3,
-            5
-        ]
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1718252540558-7b383b52642e?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Dark, versatile and soft. Fits true to size."
     },
     {
-        "name": "Aurora Max 5G",
-        "category": "SmartPhones",
-        "price": 38999,
+        "name": "Powder-blue casual shirt (M)",
+        "category": "Tops",
+        "price": 350,
+        "originalPrice": 1299,
+        "condition": "Good",
+        "daysAgo": 12,
+        "seller": 7,
         "rating": 4,
-        "Stock": 20,
-        "photo": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd",
-        "description": "5G smartphone with a 6.7-inch display, wireless charging and a triple camera system.",
-        "reviews": [
-            2,
-            4,
-            0
-        ]
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1623658580851-3b25bf83b4ea?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Lightweight cotton, good for hot days. Ironed and folded."
+    },
+    {
+        "name": "Patterned formal shirt (L)",
+        "category": "Tops",
+        "price": 450,
+        "originalPrice": 1499,
+        "condition": "Good",
+        "daysAgo": 12,
+        "seller": 1,
+        "rating": 4,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1602810316693-3667c854239a?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "Fine micro-print. Worn for club presentations. No marks."
+    },
+    {
+        "name": "Light-wash denim shorts (M)",
+        "category": "Bottom",
+        "price": 350,
+        "originalPrice": 1299,
+        "condition": "Good",
+        "daysAgo": 13,
+        "seller": 3,
+        "rating": 4,
+        "Stock": 1,
+        "photo": "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=800&h=800&fit=crop&auto=format&q=80",
+        "description": "High-waist with a rolled hem. Washed and ready."
     }
 ]
 
-const photo = (url) => `${url}?w=800&h=800&fit=crop&auto=format&q=80`
+const DAY = 24 * 60 * 60 * 1000
+const now = Date.now()
 
-const products = items.map((item, i) => {
-    const reviews = item.reviews.map((r, j) => ({
-        _id: `demo-review-${i}-${j}`.padEnd(24, "0").slice(0, 24),
-        user: owner,
-        name: reviewers[r][0],
-        rating: Math.max(3, Math.min(5, Math.round(item.rating + (j === 1 ? -0.5 : 0.5)))),
-        comment: reviewers[r][1],
-    }))
+const products = listings.map((l, i) => {
+    const [name, hostel, year] = sellers[l.seller]
+    const reviews = [0, 1].map((j) => {
+        const [buyer, comment] = buyers[(i + j * 2) % buyers.length]
+        return {
+            _id: `demo-review-${i}-${j}`.padEnd(24, "0").slice(0, 24),
+            user: "000000000000000000000000",
+            name: buyer,
+            rating: Math.max(3, Math.min(5, Math.round(l.rating + (j === 1 ? -0.5 : 0.5)))),
+            comment,
+        }
+    })
 
     return {
         _id: `demo${String(i + 1).padStart(2, "0")}`.padEnd(24, "0"),
-        name: item.name,
-        description: item.description,
-        price: item.price,
-        rating: item.rating,
-        images: [{ public_id: `demo/${i + 1}`, url: photo(item.photo) }],
-        category: item.category,
-        Stock: item.Stock,
+        name: l.name,
+        description: l.description,
+        price: l.price,
+        originalPrice: l.originalPrice,
+        condition: l.condition,
+        location: `${hostel} lobby`,
+        rating: l.rating,
+        images: [{ public_id: `demo/${i + 1}`, url: l.photo }],
+        category: l.category,
+        Stock: l.Stock,
         numOfReviews: reviews.length,
         reviews,
-        user: owner,
-        createdAt: new Date(Date.UTC(2023, 0, 1 + i)).toISOString(),
+        user: { _id: `seller${l.seller}`, name, hostel, year },
+        createdAt: new Date(now - l.daysAgo * DAY).toISOString(),
     }
 })
 

@@ -2,6 +2,7 @@ const Product = require("../models/productModel")
 const ErrorHandler = require("../utils/errorHandler")
 const catchAsyncError = require("../middleware/catchAsyncError")
 const ApiFeatures = require("../utils/apiFeatures")
+const cloudinary = require("cloudinary")
 const { isDemoMode, queryProducts, findProduct } = require("../demo/demoMode")
 
 // Create Product Controller
@@ -15,6 +16,45 @@ const createProduct = catchAsyncError(async (req, res, next) => {
     })
 })
 
+// Post a listing (any logged-in student)
+const createListing = catchAsyncError(async (req, res, next) => {
+    const { name, description, price, originalPrice, category, condition, location } = req.body
+
+    if (!name || !description || !price || !category) {
+        return next(new ErrorHandler("Please fill in the title, description, price and category", 400))
+    }
+
+    let images = req.body.images || []
+    if (typeof images === "string") images = [images]
+    if (images.length === 0) {
+        return next(new ErrorHandler("Please add at least one photo", 400))
+    }
+    if (images.length > 5) {
+        return next(new ErrorHandler("You can upload up to 5 photos", 400))
+    }
+
+    const imagesLinks = []
+    for (const image of images) {
+        const result = await cloudinary.v2.uploader.upload(image, { folder: "listings", width: 1000, crop: "limit" })
+        imagesLinks.push({ public_id: result.public_id, url: result.secure_url })
+    }
+
+    const product = await Product.create({
+        name,
+        description,
+        price,
+        originalPrice: originalPrice || undefined,
+        category,
+        condition,
+        location,
+        Stock: 1,
+        images: imagesLinks,
+        user: req.user.id,
+    })
+
+    res.status(201).json({ success: true, product })
+})
+
 // Get All Products
 const getAllProducts = catchAsyncError(async (req, res, next) => {
     if (isDemoMode()) {
@@ -24,7 +64,7 @@ const getAllProducts = catchAsyncError(async (req, res, next) => {
     const resultPerPage = 10;
     const productsCount = await Product.countDocuments();
 
-    const apiFeature = new ApiFeatures(Product.find(), req.query)
+    const apiFeature = new ApiFeatures(Product.find().populate("user", "name"), req.query)
         .search()
         .filter()
         .pagination(resultPerPage)
@@ -43,7 +83,7 @@ const getAllProducts = catchAsyncError(async (req, res, next) => {
 
 // Get Product Details
 const getProductDetails = catchAsyncError(async (req, res, next) => {
-    const product = isDemoMode() ? findProduct(req.params.id) : await Product.findById(req.params.id);
+    const product = isDemoMode() ? findProduct(req.params.id) : await Product.findById(req.params.id).populate("user", "name");
 
     if (!product) {
         return next(new ErrorHandler("Product Not Found", 404))
@@ -202,6 +242,7 @@ const deleteReview = catchAsyncError(async (req, res, next) => {
 })
 
 module.exports = {
+    createListing,
     getAllProducts,
     createProduct,
     updateProduct,

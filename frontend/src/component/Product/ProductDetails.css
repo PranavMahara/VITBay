@@ -1,41 +1,54 @@
-.content { max-width: 1240px; margin: 0 auto; padding: 48px 24px 0; }
-.box-outer { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; background: var(--card); border-radius: 24px; padding: 40px; box-shadow: var(--shadow); align-items: start; border: 0 !important; }
-.box-left { border-radius: 18px; overflow: hidden; background: #f1f5f9; }
-.box-left > div { overflow: hidden; }
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap");
+
+.content { max-width: 1200px; margin: 0 auto; padding: 28px 24px 0; }
+.crumbs { font-family: "Raleway", sans-serif; font-style: italic; color: #777; margin-bottom: 14px; }
+.crumbs a { color: #555; }
+.crumbs a:hover { color: tomato; }
+
+.box-outer { display: flex; justify-content: space-between; gap: 48px; padding: 40px; border: 3px solid rgb(51, 50, 50); border-radius: 20px; background: #fff; }
+.box-left { flex: 0 0 44%; max-width: 44%; }
+.box-left > div { overflow: hidden; border-radius: 10px; }
 .CarouselImage { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
-.product { display: flex; flex-direction: column; gap: 14px; }
-.product-details { display: flex; flex-direction: column; gap: 6px; }
-.product-name { font-size: 34px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; font-family: inherit !important; font-style: normal !important; }
-.product-price { font-size: 30px; font-weight: 800; color: var(--brand) !important; }
-.detailsBlock-stars { display: flex; align-items: center; gap: 8px; }
-.detailsBlock-stars-span { font-size: 14px; color: var(--ink-soft); }
-.product-id { font-size: 12px; color: var(--muted); }
-.product-description { font-size: 16px !important; line-height: 1.7 !important; color: var(--ink-soft); }
-.detailsBlock-Cart { background: #f8fafc; border: 1px solid var(--line) !important; border-radius: 14px; padding: 18px 20px !important; display: flex; flex-direction: column; gap: 10px; }
-.detailsBlock-Cart p { margin: 0; font-size: 14px; color: var(--ink-soft); }
-.detailsBlock-Cart-1 { display: flex; align-items: center; gap: 18px; }
-.detailsBlock-Cart-Number { display: inline-flex; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
-.detailsBlock-Cart-Number button { width: 40px; height: 40px; border: 0; background: transparent; font-size: 20px; font-weight: 600; cursor: pointer; color: var(--ink); }
-.detailsBlock-Cart-Number button:hover { background: #eef2ff; }
-.detailsBlock-Cart-Number input { width: 44px; text-align: center; border: 0; font-weight: 700; background: transparent; outline: none; }
-.buttonStyling { display: flex; gap: 12px; flex-wrap: wrap; }
-.buttons { padding: 14px 28px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 600; cursor: pointer; text-align: center; transition: all 0.15s; user-select: none; }
-.buttons:hover { transform: translateY(-2px); background: #1e293b; }
-.redBackgroundColor { background: transparent !important; color: var(--ink) !important; border: 1.5px solid var(--line); }
-.redBackgroundColor:hover { background: #f1f5f9 !important; }
-.greenColor { color: var(--ok) !important; }
-.redColor { color: var(--danger) !important; }
+.product { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.product-details { font-family: "Lora", serif; margin-bottom: 4px; }
+.product-name { font-weight: bold; font-size: 2rem; line-height: 1.2; font-style: italic; }
+.product-priceRow { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.product-price { color: tomato; font-size: 2rem; font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif; }
+.product-priceRow s { color: #999; }
+.product-priceRow em { color: #2e7d32; font-style: normal; font-weight: 500; }
 
-.reviews { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
-.reviews::before { content: "Customer reviews"; grid-column: 1 / -1; font-size: 24px; font-weight: 800; }
-.reviewCard { background: var(--card); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; border: 0 !important; width: auto !important; margin: 0 !important; }
-.reviewCard p { font-weight: 700; margin: 0; }
-.reviewCardComment { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
-.noReviews { text-align: center; margin-top: 40px; color: var(--ink-soft); font-size: 18px; }
+.factList { list-style: none; padding: 0; margin: 4px 0 8px; border-top: 1px solid #e3e3e3; }
+.factList li { display: flex; padding: 9px 0; border-bottom: 1px solid #e3e3e3; font-size: 1rem; }
+.factList b { width: 110px; flex: none; color: #777; font-weight: 500; font-family: "Raleway", sans-serif; font-style: italic; }
+.product-description { font-size: 1.05rem; line-height: 1.7; color: #444; margin: 6px 0 10px; }
 
-@media (max-width: 800px) { .box-outer { grid-template-columns: 1fr; padding: 20px; gap: 28px; } .product-name { font-size: 28px; } }
+.sellerCard { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 1px dashed #aaa; border-radius: 8px; margin-bottom: 8px; }
+.sellerCard > i { width: 46px; height: 46px; border-radius: 50%; background: rgb(51, 50, 50); color: #fff; display: grid; place-items: center; font-style: normal; font-family: "Alkatra", cursive; font-size: 1.4rem; flex: none; }
+.sellerCard b { display: block; }
+.sellerCard span { color: #777; font-size: 0.9rem; }
+.sellerCard .detailsBlock-stars { display: flex; align-items: center; gap: 6px; }
 
-/* quantity stepper alignment (overrides legacy button/input styles) */
-.detailsBlock-Cart-Number { height: 44px; padding: 0 !important; margin: 0 !important; gap: 0; }
-.detailsBlock-Cart-Number button { display: grid !important; place-items: center; padding: 0 !important; margin: 0 !important; line-height: 1; height: 44px !important; width: 44px !important; position: static !important; background: transparent !important; color: var(--ink) !important; border-radius: 0 !important; }
-.detailsBlock-Cart-Number input { margin: 0 !important; padding: 0 !important; height: 44px !important; width: 44px !important; background: transparent !important; position: static !important; }
+.detailsBlock-Cart { background-color: #f5f5f5; border: 1px solid #e1e1e1; padding: 14px 18px; border-radius: 6px; }
+.detailsBlock-Cart p { margin: 0; font-size: 0.95rem; color: #555; }
+.detailsBlock-Cart-1 { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+.detailsBlock-Cart-Number { display: flex; align-items: center; border: 1px solid #ddd; background: #fff; border-radius: 4px; overflow: hidden; }
+.detailsBlock-Cart-Number button { width: 36px; height: 36px; border: 0 !important; background: #fff !important; color: #666 !important; font-size: 1.2rem; cursor: pointer; padding: 0 !important; margin: 0 !important; }
+.detailsBlock-Cart-Number button:hover { background: #eee !important; }
+.detailsBlock-Cart-Number input { width: 40px; height: 36px; border: 0; text-align: center; font-weight: 700; outline: none; background: transparent; padding: 0; margin: 0; }
+.greenColor { color: #2e7d32 !important; }
+.redColor { color: red !important; }
+
+.buttonStyling { display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+.buttons { padding: 13px 28px; border-radius: 4px; background: rgb(51, 50, 50); color: #fff; font-weight: 500; cursor: pointer; transition: all 0.2s; user-select: none; text-align: center; }
+.buttons:hover { background: #000; }
+.redBackgroundColor { background: tomato; }
+.redBackgroundColor:hover { background: #eb4034; }
+
+.reviewsHeading { font-family: "Alkatra", cursive; text-align: center; font-size: 2rem; margin: 48px 0 20px; color: rgba(0, 0, 0, 0.75); font-weight: 500; }
+.reviews { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+.reviewCard { width: 280px; padding: 20px; border: 1px solid rgba(56, 56, 56, 0.2); box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-radius: 6px; background: #fff; display: flex; flex-direction: column; gap: 6px; }
+.reviewCard > p { margin: 0; font-weight: 700; color: rgba(0, 0, 0, 0.8); }
+.reviewCardComment { color: rgba(0, 0, 0, 0.55); font-family: "Raleway", sans-serif; font-style: italic; }
+.noReviews { text-align: center; color: rgba(0, 0, 0, 0.55); }
+
+@media (max-width: 800px) { .box-outer { flex-direction: column; padding: 20px; } .box-left { flex: none; max-width: 100%; } }

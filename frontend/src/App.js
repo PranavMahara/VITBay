@@ -21,6 +21,7 @@ import ForgotPassword from './component/User/ForgotPassword';
 import ResetPassword from './component/User/ResetPassword';
 import NotFound from "./component/layout/NotFound/NotFound";
 import Cart from './component/Cart/Cart';
+import Sell from "./component/Sell/Sell";
 import Shipping from "./component/Cart/Shipping"
 import ConfirmOrder from './component/Cart/ConfirmOrder';
 import Payment from "./component/Cart/Payment"
@@ -61,6 +62,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
         <Route path="/about" element={<About />} />
+        <Route path="/sell" element={<Sell />} />
         <Route path="/search" element={<Search />} />
         <Route path="/login" element={<LoginSignup />} />
         <Route path="/register" element={<SignUp />} />

@@ -3,8 +3,8 @@ import "./Products.css"
 import { useDispatch, useSelector } from 'react-redux'
 import { clearErrors, getProduct } from '../../actions/productsAction'
 import Loader from '../layout/Loader/Loader'
-import ProductCard from '../Home/ProductCard'
-import { useParams, useSearchParams } from 'react-router-dom'
+import ProductCard, { rupees } from '../Home/ProductCard'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import Pagination from "react-js-pagination"
 import { Slider, Typography } from '@mui/material'
 import { useAlert } from "react-alert"
@@ -29,6 +29,10 @@ export default function Products({ match }) {
     const [searchParams] = useSearchParams()
     const [category, setCategory] = useState(searchParams.get("category") || "")
     const [ratings, setRatings] = useState(0)
+    const [condition, setCondition] = useState("")
+    const urlCategory = searchParams.get("category") || ""
+
+    useEffect(() => { setCategory(urlCategory); setcurrentPage(1) }, [urlCategory])
 
     const { products, loading, error, productsCount, resultPerPage, filteredProductsCount } = useSelector((state) => state.products)
 
@@ -50,46 +54,58 @@ export default function Products({ match }) {
     }, [dispatch, alert, error]);
 
     useEffect(() => {
-        dispatch(getProduct(keyword, currentPage, price, category, ratings));
-    }, [dispatch, keyword, currentPage, price, category, ratings]);
+        dispatch(getProduct(keyword, currentPage, price, category, ratings, condition));
+    }, [dispatch, keyword, currentPage, price, category, ratings, condition]);
+
+    const categoryList = [
+        ["Laptop", "Laptops"], ["SmartPhones", "Phones"], ["Camera", "Cameras"], ["Books", "Books"],
+        ["Hostel", "Hostel essentials"], ["Footwear", "Footwear"], ["Tops", "Tops"], ["Bottom", "Bottoms"], ["Attire", "Jackets & hoodies"],
+    ];
+    const conditions = ["Like new", "Good", "Fair"];
+    const title = keyword
+        ? `Results for “${keyword}”`
+        : category ? (categoryList.find(([v]) => v === category) || [0, category])[1] : "All listings";
 
     return (
-        <div className="vb-page vb-shop">
-            <aside className="vb-filters">
-                <h3>Filters</h3>
+        <div className="shopPage">
+            <aside className="filterBox">
+                <Typography className="filterTitle">Price</Typography>
+                <Slider
+                    value={price}
+                    onChange={priceHandler}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="range-slider"
+                    min={0}
+                    max={100000}
+                    step={500}
+                    sx={{ color: "rgb(51, 50, 50)" }}
+                />
+                <div className="priceRange"><span>{rupees(price[0])}</span><span>{rupees(price[1])}</span></div>
 
-                <div className="vb-filter-group">
-                    <Typography className="vb-filter-title">Price</Typography>
-                    <Slider
-                        value={price}
-                        onChange={priceHandler}
-                        valueLabelDisplay="auto"
-                        aria-labelledby="range-slider"
-                        min={0}
-                        max={100000}
-                        step={500}
-                    />
-                    <div className="vb-price-range"><span>₹{price[0].toLocaleString("en-IN")}</span><span>₹{price[1].toLocaleString("en-IN")}</span></div>
-                </div>
+                <Typography className="filterTitle">Category</Typography>
+                <ul className="categoryBox">
+                    <li className={"category-link" + (!category ? " activeCategory" : "")} onClick={() => { setCategory(""); setcurrentPage(1) }}>All listings</li>
+                    {categoryList.map(([value, label]) => (
+                        <li
+                            className={"category-link" + (category === value ? " activeCategory" : "")}
+                            key={value}
+                            onClick={() => { setCategory(value); setcurrentPage(1) }}
+                        >
+                            {label}
+                        </li>
+                    ))}
+                </ul>
 
-                <div className="vb-filter-group">
-                    <Typography className="vb-filter-title">Category</Typography>
-                    <ul className="vb-categories">
-                        <li className={!category ? "active" : ""} onClick={() => { setCategory(""); setcurrentPage(1) }}>All</li>
-                        {categories.map((c) => (
-                            <li
-                                key={c}
-                                className={category === c ? "active" : ""}
-                                onClick={() => { setCategory(c); setcurrentPage(1) }}
-                            >
-                                {c === "SmartPhones" ? "Smartphones" : c}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <Typography className="filterTitle">Condition</Typography>
+                <ul className="categoryBox">
+                    <li className={"category-link" + (!condition ? " activeCategory" : "")} onClick={() => { setCondition(""); setcurrentPage(1) }}>Any</li>
+                    {conditions.map((c) => (
+                        <li className={"category-link" + (condition === c ? " activeCategory" : "")} key={c} onClick={() => { setCondition(c); setcurrentPage(1) }}>{c}</li>
+                    ))}
+                </ul>
 
-                <div className="vb-filter-group">
-                    <Typography className="vb-filter-title">Minimum rating</Typography>
+                <fieldset>
+                    <Typography component="legend" className="filterTitle">Seller rating above</Typography>
                     <Slider
                         value={ratings}
                         onChange={(e, newRating) => { setRatings(newRating); }}
@@ -98,26 +114,27 @@ export default function Products({ match }) {
                         min={0}
                         max={5}
                         step={0.5}
+                        sx={{ color: "rgb(51, 50, 50)" }}
                     />
-                </div>
+                </fieldset>
             </aside>
 
-            <main className="vb-shop-main">
-                <div className="vb-shop-head">
-                    <h1>{keyword ? `Results for “${keyword}”` : category ? (category === "SmartPhones" ? "Smartphones" : category) : "All products"}</h1>
-                    {!loading && <span>{count} {count === 1 ? "item" : "items"}</span>}
+            <main className="shopMain">
+                <div className="shopHead">
+                    <h1>{title}</h1>
+                    {!loading && <span>{count} {count === 1 ? "listing" : "listings"}</span>}
                 </div>
 
                 {loading ? <Loader /> : products && products.length > 0 ? (
-                    <div className="vb-grid">
+                    <div className="container">
                         {products.map((product) => (
                             <ProductCard key={product._id} product={product} />
                         ))}
                     </div>
                 ) : (
-                    <div className="vb-empty">
-                        <h3>No products match your filters</h3>
-                        <p>Try widening the price range or choosing another category.</p>
+                    <div className="noListings">
+                        <h3>Nothing here yet</h3>
+                        <p>Try a wider price range or another category, or <Link to="/sell">post the first listing</Link>.</p>
                     </div>
                 )}
 

@@ -1,49 +1,30 @@
 import React from "react";
 import "./aboutSection.css";
 
-const stack = ["React 18", "Redux", "React Router", "MUI", "Node.js", "Express", "MongoDB", "Mongoose", "JWT auth", "Stripe", "Cloudinary", "Vercel"];
-
-const features = [
-    ["Browse & discover", "Searchable catalogue with category, price and rating filters and pagination."],
-    ["Product pages", "Image carousel, stock status, quantity picker and customer reviews."],
-    ["Cart & checkout", "Persistent cart, shipping details, order confirmation and Stripe payments."],
-    ["Accounts", "Secure sign-up and login with JWT cookies, profile updates and password reset by email."],
-    ["Admin dashboard", "Manage products, orders, users and reviews from one place."],
-    ["Deployed on Vercel", "React frontend and an Express API running as a serverless function."],
-];
+const stack = ["React", "Redux", "React Router", "MUI", "Node.js", "Express", "MongoDB", "JWT authentication", "Stripe", "Cloudinary", "Vercel"];
 
 const About = () => {
     return (
-        <div className="vb-about vb-page">
-            <section className="vb-about-hero">
-                <span className="vb-eyebrow dark">About the project</span>
-                <h1>A full-stack store, built end to end.</h1>
-                <p>
-                    VITBay is a MERN-stack e-commerce application designed and built by{" "}
+        <div className="about-me-container">
+            <div className="about-me-info">
+                <h1 className="about-me-header">About VITBay</h1>
+                <p className="about-me-text">
+                    VITBay is a campus marketplace, an <span>eBay for college students</span>. It lets students
+                    buy and sell things to each other: laptops, textbooks, cameras, clothes and hostel essentials,
+                    without leaving campus.
+                </p>
+                <p className="about-me-text">
+                    Built as a MERN-stack project by{" "}
                     <a href="https://github.com/PranavMahara" target="_blank" rel="noreferrer">Pranav Singh Mahara</a>.
-                    It covers everything from the product catalogue and cart to authentication, payments and an admin panel.
+                    Includes search and filters, listings with seller details, a cart, user accounts, image uploads and an admin panel.
                 </p>
-                <div className="vb-about-cta">
-                    <a className="vb-btn dark" href="https://github.com/PranavMahara/VITBay" target="_blank" rel="noreferrer">View the source</a>
-                </div>
-            </section>
-
-            <section className="vb-about-grid">
-                {features.map(([title, text]) => (
-                    <div className="vb-about-card" key={title}>
-                        <h3>{title}</h3>
-                        <p>{text}</p>
-                    </div>
-                ))}
-            </section>
-
-            <section className="vb-about-stack">
-                <h2>Tech stack</h2>
-                <div>{stack.map((s) => <span key={s}>{s}</span>)}</div>
-                <p className="vb-note">
-                    This public deployment runs in demo mode: the catalogue is sample data and accounts, orders and payments are switched off.
+                <ul className="about-stack">
+                    {stack.map((s) => <li key={s}>{s}</li>)}
+                </ul>
+                <p className="about-note">
+                    This public deployment runs in demo mode with sample listings. Accounts, posting and payments are switched off.
                 </p>
-            </section>
+            </div>
         </div>
     );
 };

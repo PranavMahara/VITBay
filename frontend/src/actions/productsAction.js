@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { ALL_PRODUCT_FAIL, ALL_PRODUCT_REQUEST, ALL_PRODUCT_SUCCESS, CLEAR_ERROR, PRODUCT_DETAILS_FAIL, PRODUCT_DETAILS_REMOVE, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS } from "../constants/productConstants";
 
-export const getProduct = (keyword = "", currentPage = 1, price = [0, 100000], category, ratings = 0) => async (dispatch) => {
+export const getProduct = (keyword = "", currentPage = 1, price = [0, 100000], category, ratings = 0, condition = "") => async (dispatch) => {
     try {
         dispatch({
             type: ALL_PRODUCT_REQUEST
@@ -11,7 +11,10 @@ export const getProduct = (keyword = "", currentPage = 1, price = [0, 100000], c
         let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&rating[gte]=${ratings}`
 
         if (category) {
-            link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&rating[gte]=${ratings}`
+            link += `&category=${category}`
+        }
+        if (condition) {
+            link += `&condition=${encodeURIComponent(condition)}`
         }
         const { data } = await axios.get(link)
 

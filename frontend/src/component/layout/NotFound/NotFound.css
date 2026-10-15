@@ -1,4 +1,43 @@
-.PageNotFound { max-width: 480px; margin: 120px auto; text-align: center; background: none !important; height: auto !important; display: block !important; }
-.PageNotFound::before { content: "404"; display: block; font-size: 96px; font-weight: 800; color: var(--brand); line-height: 1; margin-bottom: 8px; }
-.PageNotFound > p, .PageNotFound .MuiTypography-root { font-size: 22px !important; font-weight: 600; color: var(--ink) !important; margin-bottom: 24px !important; font-family: inherit !important; }
-.PageNotFound a { display: inline-block; background: var(--ink); color: #fff !important; padding: 12px 28px; border-radius: 999px; font-weight: 600; text-decoration: none !important; }
+.PageNotFound {
+  margin: auto;
+  text-align: center;
+  padding: 10vmax;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.PageNotFound > svg {
+  font-size: 7vmax;
+  color: tomato;
+}
+.PageNotFound > p {
+  font-size: 2vmax;
+}
+.PageNotFound > a {
+  background-color: rgb(51, 51, 51);
+  color: white;
+  border: none;
+  padding: 1vmax 3vmax;
+  cursor: pointer;
+  font: 400 1vmax "Roboto";
+  text-decoration: none;
+  margin: 2vmax;
+}
+
+@media screen and (max-width: 600px) {
+  .PageNotFound > a {
+    padding: 3vw 6vw;
+    font: 400 4vw "Roboto";
+    margin: 2vmax;
+  }
+
+  .PageNotFound > svg {
+    font-size: 20vw;
+  }
+  .PageNotFound > p {
+    margin: 2vmax;
+    font-size: 5vw;
+  }
+}
