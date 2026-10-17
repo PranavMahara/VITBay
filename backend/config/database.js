@@ -1,15 +1,23 @@
 const mongoose = require("mongoose")
 
-// Cached across invocations so serverless functions reuse one connection
+// One cached connection per function instance, so warm serverless invocations reuse it
 let connection = null
 
-const connectionDB = async () => {
+const connectDatabase = async () => {
     if (connection) return connection
 
-    connection = mongoose.connect(process.env.connectionString)
-        .then((data) => {
-            console.log(`Mongodb connected with server: ${data.connection.host}`)
-            return data
+    const uri = process.env.MONGODB_URI || process.env.connectionString
+    if (!uri) throw new Error("MONGODB_URI is not set")
+
+    connection = mongoose
+        .connect(uri, { dbName: process.env.MONGODB_DB || "vitbay", maxIdleTimeMS: 10000, serverSelectionTimeoutMS: 10000 })
+        .then((m) => {
+            // Lets Vercel close idle sockets cleanly when a function instance is suspended
+            try {
+                const { attachDatabasePool } = require("@vercel/functions")
+                attachDatabasePool(m.connection.getClient())
+            } catch (_) { /* not on Vercel */ }
+            return m
         })
         .catch((err) => {
             connection = null
@@ -19,4 +27,4 @@ const connectionDB = async () => {
     return connection
 }
 
-module.exports = connectionDB
+module.exports = connectDatabase

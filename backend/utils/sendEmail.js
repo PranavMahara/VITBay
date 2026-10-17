@@ -1,26 +1,22 @@
-const nodeMailer = require("nodemailer");
+const nodeMailer = require("nodemailer")
 
-const sendEmail = async (options) => {
-  const transporter = nodeMailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    service: process.env.SMPT_SERVICE,
-    auth: {
-      user: process.env.SMPT_MAIL,
-      pass: process.env.SMPT_PASSWORD,
-    },
-  });
+const emailConfigured = () => Boolean(process.env.SMPT_MAIL && process.env.SMPT_PASSWORD)
 
-  const mailOptions = {
-    from: process.env.SMPT_MAIL,
-    to: options.email,
-    subject: options.subject,
-    text: options.message,
-  };
+const sendEmail = async ({ email, subject, message }) => {
+    const transporter = nodeMailer.createTransport({
+        service: process.env.SMPT_SERVICE || "gmail",
+        auth: {
+            user: process.env.SMPT_MAIL,
+            pass: process.env.SMPT_PASSWORD,
+        },
+    })
 
-  // console.log(mailOptions)
+    await transporter.sendMail({
+        from: `VITBay <${process.env.SMPT_MAIL}>`,
+        to: email,
+        subject,
+        text: message,
+    })
+}
 
-  await transporter.sendMail(mailOptions);
-};
-
-module.exports = sendEmail;
+module.exports = { sendEmail, emailConfigured }

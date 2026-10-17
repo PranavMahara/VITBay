@@ -1,23 +1,19 @@
-// Create Token and saving in cookie
+// Create a session token and store it in an httpOnly cookie
+
+const cookieOptions = () => ({
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+})
 
 const sendToken = (user, statusCode, res) => {
-    const token = user.getJWTToken();
+    const days = Number(process.env.COOKIE_EXPIRE) || 7
+    res.status(statusCode)
+        .cookie("token", user.getJWTToken(), { ...cookieOptions(), expires: new Date(Date.now() + days * 864e5) })
+        .json({ success: true, user: user.toPrivate() })
+}
 
-    // options for cookie
-    const options = {
-        expires: new Date(
-            Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-        ),
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-    };
+const clearToken = (res) => res.cookie("token", "", { ...cookieOptions(), expires: new Date(0) })
 
-    res.status(statusCode).cookie("token", token, options).json({
-        success: true,
-        user,
-        token,
-    });
-};
-
-module.exports = sendToken;
+module.exports = { sendToken, clearToken }

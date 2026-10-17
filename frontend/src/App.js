@@ -1,93 +1,70 @@
-import './App.css';
-import React, { useState, useEffect } from 'react'
-import Navbar from "./component/layout/Navbar/Navbar.js"
-import { Route, Routes, BrowserRouter } from "react-router-dom"
-import Footer from './component/layout/Footer/Footer';
-import WebFont from 'webfontloader';
-import Home from "./component/Home/Home";
-import ProductDetails from './component/Product/ProductDetails';
-import Products from './component/Product/Products';
-import Search from './component/Product/Search';
-import About from "./component/layout/About/About"
-import LoginSignup from "./component/User/LoginSignUp"
-import Profile from "./component/User/Profile"
-import SignUp from './component/User/SignUp';
-import store from './store';
-import { loadUser } from './actions/userAction';
-import ProtectedRoute from './component/ProtectedRoute';
-import UpdateProfile from './component/User/UpdateProfile';
-import UpdatePassword from './component/User/UpdatePassword';
-import ForgotPassword from './component/User/ForgotPassword';
-import ResetPassword from './component/User/ResetPassword';
-import NotFound from "./component/layout/NotFound/NotFound";
-import Cart from './component/Cart/Cart';
-import Sell from "./component/Sell/Sell";
-import Shipping from "./component/Cart/Shipping"
-import ConfirmOrder from './component/Cart/ConfirmOrder';
-import Payment from "./component/Cart/Payment"
-import axios from "axios"
+import React, { Suspense, lazy, useEffect } from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import { RequireAuth, Spinner } from "./components/ui";
+import Home from "./pages/Home";
+import Browse from "./pages/Browse";
+import ListingPage from "./pages/ListingPage";
+import { Login, Register, ForgotPassword, ResetPassword } from "./pages/Auth";
+import { About, Guidelines, NotFound, Safety } from "./pages/Info";
 
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+const ListingForm = lazy(() => import("./pages/ListingForm"));
+const Inbox = lazy(() => import("./pages/Inbox"));
+const Profile = lazy(() => import("./pages/Profile"));
+const MyListings = lazy(() => import("./pages/MyListings"));
+const Saved = lazy(() => import("./pages/Saved"));
+const Settings = lazy(() => import("./pages/Settings"));
+const Credits = lazy(() => import("./pages/Credits"));
 
-function App() {
-  const [stripeApiKey, setStripeApiKey] = useState("");
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
 
-  async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/stripeapikey");
+function Shell() {
+  const { pathname } = useLocation();
+  const bare = ["/login", "/register", "/password"].some((p) => pathname.startsWith(p));
+  const fullHeight = pathname.startsWith("/inbox");
 
-    setStripeApiKey(data.stripeApiKey);
-  }
-
-  useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ["Roboto", "Droid Sans", "Chilanka"],
-      },
-    });
-
-    store.dispatch(loadUser());
-
-    getStripeApiKey();
-  }, []);
-
-  window.addEventListener("contextmenu", (e) => e.preventDefault());
   return (
-
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:keyword" element={<Products />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/sell" element={<Sell />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/login" element={<LoginSignup />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route exact path="/account" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route exact path="/me/update" element={<ProtectedRoute><UpdateProfile /></ProtectedRoute>} />
-        <Route exact path="/password/update" element={<ProtectedRoute><UpdatePassword /></ProtectedRoute>} />
-        <Route exact path="/password/forgot" element={<ForgotPassword />} />
-        <Route exact path="/password/reset/:token" element={<ResetPassword />} />
-        <Route exact path="*" element={<NotFound />} />
-        <Route exact path="/cart" element={<Cart />} />
-        <Route exact path='/shipping' element={<ProtectedRoute><Shipping /></ProtectedRoute>} />
-        <Route exact path='/order/confirm' element={<ProtectedRoute><ConfirmOrder /></ProtectedRoute>} />
-        {/* {stripeApiKey && (
-          <Elements stripe={loadStripe(stripeApiKey)}>
-            <Route exact path="/process/payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
-          </Elements>
-        )} */}
-        <Route exact path="/process/payment" element={<Elements stripe={stripeApiKey ? loadStripe(stripeApiKey) : null}>
-          <ProtectedRoute><Payment /></ProtectedRoute>
-        </Elements>} />
-
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <div className={`app ${fullHeight ? "app-fixed" : ""}`}>
+      {!bare && <Navbar />}
+      <Suspense fallback={<Spinner />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/browse" element={<Browse />} />
+          <Route path="/listing/:id" element={<ListingPage />} />
+          <Route path="/listing/:id/edit" element={<RequireAuth><ListingForm /></RequireAuth>} />
+          <Route path="/sell" element={<RequireAuth><ListingForm /></RequireAuth>} />
+          <Route path="/u/:id" element={<Profile />} />
+          <Route path="/inbox" element={<RequireAuth><Inbox /></RequireAuth>} />
+          <Route path="/inbox/:id" element={<RequireAuth><Inbox /></RequireAuth>} />
+          <Route path="/my/listings" element={<RequireAuth><MyListings /></RequireAuth>} />
+          <Route path="/saved" element={<RequireAuth><Saved /></RequireAuth>} />
+          <Route path="/settings" element={<RequireAuth><Settings /></RequireAuth>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/password/forgot" element={<ForgotPassword />} />
+          <Route path="/password/reset/:token" element={<ResetPassword />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/safety" element={<Safety />} />
+          <Route path="/guidelines" element={<Guidelines />} />
+          <Route path="/credits" element={<Credits />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+      {!bare && !fullHeight && <Footer />}
+    </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Shell />
+    </BrowserRouter>
+  );
+}
