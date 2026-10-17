@@ -7,6 +7,7 @@
     { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
+  "crons": [{ "path": "/api/v1/health", "schedule": "0 6 * * *" }],
   "functions": {
     "api/index.js": { "maxDuration": 30, "includeFiles": "backend/**" }
   }

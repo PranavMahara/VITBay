@@ -52,7 +52,15 @@ app.use("/api", async (req, res, next) => {
     }
 })
 
-app.get("/api/v1/health", (req, res) => res.json({ success: true }))
+// Also hit daily by a Vercel cron so the free Atlas cluster never looks idle and gets paused
+app.get("/api/v1/health", async (req, res, next) => {
+    try {
+        await require("mongoose").connection.db.admin().ping()
+        res.json({ success: true })
+    } catch (err) {
+        next(new ErrorHandler("Database ping failed", 503))
+    }
+})
 app.use("/api/v1", api)
 
 app.use("/api", (req, res, next) => next(new ErrorHandler("Not found", 404)))
